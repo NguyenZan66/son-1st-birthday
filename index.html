@@ -18,9 +18,9 @@
     <meta name="twitter:image" content="https://via.placeholder.com/180.png?text=Hình+bé">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;700&display=swap');
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Playfair Display', serif;
             background: linear-gradient(to bottom right, #FFF4CC, #FFFCCF, #E0F8FF, #F4FCFF);
             margin: 0;
             display: flex;
@@ -29,6 +29,7 @@
             padding: 20px;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
         .card {
             background: rgba(255, 255, 255, 0.85);
@@ -40,6 +41,7 @@
             max-width: 600px;
             margin: auto;
             position: relative;
+            
         }
         .card h1 {
             font-family: 'Pacifico', cursive;
@@ -58,13 +60,14 @@
             margin: 10px 0;
         }
         .birthday-img {
-            width: 300px;
-            height: 300px;
+            width: 300px; /* Cập nhật kích thước rộng */
+            height: 300px; /* Cập nhật kích thước cao */
             border-radius: 50%;
             margin: 10px;
             border: 5px solid #FFA500;
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Thay đổi con trỏ chuột khi nhấn vào ảnh */
         }
         .additional-images {
             display: flex;
@@ -80,15 +83,35 @@
             border: 3px solid #FFD700;
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Thay đổi con trỏ chuột khi nhấn vào ảnh */
+        }
+        .gallery {
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: calc(33.333% - 10px);
+            margin: 5px;
+            border-radius: 10px;
+            border: 3px solid #FFD700;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Thay đổi con trỏ chuột khi nhấn vào ảnh */
         }
         .map {
             margin-top: 20px;
-        }
-        .map img {
+            position: relative;
             width: 100%;
-            max-width: 400px;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+        .map iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 0;
             border-radius: 10px;
-            border: 3px solid #FFA500;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .qr-section {
@@ -101,6 +124,7 @@
             border-radius: 10px;
             margin: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
         .footer {
             margin-top: 20px;
@@ -114,7 +138,8 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
+            animation: floatBalloons 10s infinite linear;
         }
         .balloon {
             position: absolute;
@@ -122,7 +147,7 @@
             height: 70px;
             background: #FFA500;
             border-radius: 50%;
-            animation: float 3s ease-in-out infinite;
+            animation: floatBalloon 4s ease-in-out infinite;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
         .balloon:before {
@@ -139,16 +164,23 @@
             position: absolute;
             width: 15px;
             height: 15px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.8);
             top: 10px;
             left: 10px;
             border-radius: 50%;
         }
-        .balloon:nth-child(1) { top: 10%; left: 10%; background: #FFA500; }
-        .balloon:nth-child(2) { top: 30%; left: 80%; background: #FFD700; }
-        .balloon:nth-child(3) { top: 60%; left: 20%; background: #FFA500; }
-        .balloon:nth-child(4) { top: 80%; left: 50%; background: #FFD700; }
-        @keyframes float {
+        .balloon:nth-child(1) { top: 10%; left: 10%; background: #FFA500; animation-delay: 0s; }
+        .balloon:nth-child(2) { top: 80%; left: 50%; background: #FFD700; animation-delay: 1s; }
+        .balloon:nth-child(3) { top: 50%; left: 70%; background: #FFA500; animation-delay: 2s; }
+        .balloon:nth-child(4) { top: 20%; left: 80%; background: #FFD700; animation-delay: 3s; }
+        .balloon:nth-child(5) { top: 40%; left: 90%; background: #FFA500; animation-delay: 4s; }
+        .balloon:nth-child(6) { top: 60%; left: 20%; background: #FFD700; animation-delay: 5s; }
+        .balloon:nth-child(7) { top: 70%; left: 40%; background: #FFA500; animation-delay: 6s; }
+        @keyframes floatBalloons {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-2000px); }
+        }
+        @keyframes floatBalloon {
             0% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
             100% { transform: translateY(0); }
@@ -164,8 +196,8 @@
                 font-size: 18px;
             }
             .birthday-img {
-                width: 150px;
-                height: 150px;
+                width: 250px; /* Điều chỉnh cho màn hình nhỏ hơn */
+                height: 250px; /* Điều chỉnh cho màn hình nhỏ hơn */
                 border-width: 4px;
             }
             .additional-img {
@@ -173,12 +205,15 @@
                 height: 100px;
                 border-width: 2px;
             }
-            .map img {
-                max-width: 100%;
+            .map {
+                padding-bottom: 75%; /* 4:3 aspect ratio */
             }
             .qr-section img {
                 width: 120px;
                 height: 120px;
+            }
+            .gallery img {
+                width: calc(50% - 10px);
             }
         }
         @media (max-width: 480px) {
@@ -192,8 +227,8 @@
                 font-size: 16px;
             }
             .birthday-img {
-                width: 120px;
-                height: 120px;
+                width: 200px; /* Điều chỉnh cho màn hình nhỏ hơn */
+                height: 200px; /* Điều chỉnh cho màn hình nhỏ hơn */
                 border-width: 3px;
             }
             .additional-img {
@@ -205,21 +240,65 @@
                 width: 100px;
                 height: 100px;
             }
+            .gallery img {
+                width: calc(100% - 10px);
+            }
+        }
+        /* Modal CSS */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.9); 
+        }
+        .modal-content {
+            margin: 15% auto; 
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <div class="balloons">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+    </div>
     <div class="card">
-        <div class="balloons">
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-            <div class="balloon"></div>
-        </div>
         <h1>Thiệp Mời Thôi Nôi</h1>
         <h2>Bé <strong>Minh</strong> Tròn 1 Tuổi</h2>
+        <div id="receiver-message">
+            <!-- Tên người nhận sẽ được cập nhật ở đây -->
+        </div>
         <div>
-            <img src="https://via.placeholder.com/180.png?text=Hình+bé" alt="Bé Minh" class="birthday-img">
+            <img src="https://via.placeholder.com/300.png?text=Hình+bé" alt="Bé Minh" class="birthday-img">
         </div>
         <p>Chúng tôi xin trân trọng mời bạn đến dự buổi tiệc thôi nôi của con trai chúng tôi.</p>
         <p>Thời gian: 5:00 chiều, ngày 25 tháng 10 năm 2023</p>
@@ -229,9 +308,18 @@
             <img src="https://via.placeholder.com/120.png?text=Hình+bé+2" alt="Hình bé 2" class="additional-img">
             <img src="https://via.placeholder.com/120.png?text=Hình+bé+3" alt="Hình bé 3" class="additional-img">
         </div>
+        <div class="gallery">
+            <h2>Thư viện ảnh của bé</h2>
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+1" alt="Hình bé 1">
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+2" alt="Hình bé 2">
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+3" alt="Hình bé 3">
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+4" alt="Hình bé 4">
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+5" alt="Hình bé 5">
+            <img src="https://via.placeholder.com/180.png?text=Hình+bé+6" alt="Hình bé 6">
+        </div>
         <div class="map">
             <h2>Bản đồ đến nhà hàng</h2>
-            <img src="https://via.placeholder.com/400x200.png?text=Bản+đồ" alt="Bản đồ" class="map-img">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.457045879928!2d106.6939293153343!3d10.762918992330746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175292924e4d95b%3A0x43fbedd4b6ccb3f5!2sBitexco%20Financial%20Tower!5e0!3m2!1svi!2s!4v1633439189042!5m2!1svi!2s" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="qr-section">
             <h2>Mừng tiền thôi nôi</h2>
@@ -245,5 +333,58 @@
             <p>Gia đình bé Minh</p>
         </div>
     </div>
+
+    <!-- Modal để phóng to ảnh -->
+    <div id="imgModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        // Hàm để lấy URL parameter
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            let results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Lấy tên người nhận từ URL parameter và cập nhật thông điệp
+        const receiverName = getParameterByName('name');
+        if (receiverName) {
+            const receiverMessage = document.getElementById('receiver-message');
+            const message = `<p>Kính gửi <strong>${receiverName}</strong>,</p>`;
+            receiverMessage.innerHTML = message;
+        }
+
+        // Có được modal
+        const modal = document.getElementById("imgModal");
+
+        // Có được image và chèn vào modal - hàm phóng to ảnh
+        const imgs = document.querySelectorAll('.birthday-img, .additional-img, .gallery img');
+        const modalImg = document.getElementById("modalImg");
+
+        imgs.forEach(img => {
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        });
+
+        // Nhấn vào <span> (x), sẽ đóng modal
+        const span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        // Nhấn bên ngoài modal cũng đóng modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
